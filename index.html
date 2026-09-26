@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trường THCS An Hiệp - Hành Trình Vượt Thời Gian</title>
+    <style>
+        /* RESET & GLOBAL STYLES */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body, html {
+            width: 100%;
+            height: 100%;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: #050505;
+            color: #ffffff;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* 3D BACKGROUND CANVAS */
+        #blackhole-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 0;
+            pointer-events: none; /* Không ngăn cản cuộn trang */
+        }
+
+        /* CONTENT WRAPPER */
+        #content {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 30vh; /* Tạo khoảng cách dài để cuộn */
+            padding-top: 30vh;
+            padding-bottom: 20vh;
+        }
+
+        /* TYPOGRAPHY & SECTIONS */
+        section {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-height: 50vh;
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            background: linear-gradient(90deg, #ff8a00, #e52e71, #9b51e0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+            text-shadow: 0px 10px 30px rgba(229, 46, 113, 0.3);
+        }
+
+        h2 {
+            font-size: clamp(1.2rem, 3vw, 2rem);
+            color: #b3b3b3;
+            font-weight: 300;
+            letter-spacing: 2px;
+            margin-bottom: 30px;
+        }
+
+        p {
+            font-size: clamp(1rem, 2vw, 1.3rem);
+            line-height: 1.8;
+            color: #d1d1d1;
+            margin-bottom: 20px;
+            text-align: justify;
+            text-shadow: 0px 2px 5px rgba(0,0,0,0.8);
+        }
+
+        /* SCROLL REVEAL EFFECT (Cuộn mờ và hiện dần) */
+        .reveal {
+            opacity: 0;
+            transform: translateY(80px) scale(0.95);
+            filter: blur(15px);
+            transition: all 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            filter: blur(0px);
+        }
+
+        /* INTERACTIVE TEXT (Chạm vào chữ thì mờ đổi màu) */
+        .interactive-text {
+            transition: all 0.4s ease;
+            cursor: pointer;
+            padding: 10px;
+            border-radius: 8px;
+        }
+        /* Hỗ trợ Hover PC và Touch Mobile */
+        .interactive-text:hover, 
+        .interactive-text:active {
+            filter: blur(2px);
+            color: #fff;
+            background: rgba(255, 255, 255, 0.05);
+            transform: scale(1.02);
+            text-shadow: 0 0 15px rgba(155, 81, 224, 0.8), 0 0 30px rgba(229, 46, 113, 0.6);
+            letter-spacing: 0.5px;
+        }
+
+        /* FOOTER & NEXT ID */
+        .footer-id {
+            margin-top: 10vh;
+            text-align: center;
+            padding: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+        }
+        
+        .footer-id h3 {
+            font-size: 1.5rem;
+            color: #fff;
+            margin-bottom: 15px;
+        }
+
+        .next-id-btn {
+            display: inline-block;
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #000;
+            background: #fff;
+            text-decoration: none;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+        }
+
+        .next-id-btn:hover {
+            box-shadow: 0 0 40px rgba(255, 255, 255, 0.9);
+            transform: translateY(-5px);
+            background: linear-gradient(90deg, #ff8a00, #e52e71);
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 3D Black Hole Background -->
+    <div id="blackhole-canvas"></div>
+
+    <!-- Main Content -->
+    <main id="content">
+        <!-- Section 1: Hero -->
+        <section class="reveal">
+            <h1>THCS An Hiệp</h1>
+            <h2>Ký ức Sóc Trăng - Vượt thời gian</h2>
+            <p class="interactive-text">Giữa dòng chảy vô tận của thời gian và không gian, có những giá trị mãi mãi trường tồn. Trường THCS An Hiệp xưa, một cái nôi tri thức tại miền đất Sóc Trăng, chính là một điểm sáng rực rỡ như thế.</p>
+        </section>
+
+        <!-- Section 2: Lịch sử & Hồi ức -->
+        <section class="reveal">
+            <h2>Nơi Bắt Đầu Của Những Giấc Mơ</h2>
+            <p class="interactive-text">Thời gian có thể làm thay đổi cảnh vật, những lớp học ngày xưa có thể khoác lên mình diện mạo mới, nhưng linh hồn của THCS An Hiệp vẫn đọng lại trong từng hàng cây, ghế đá. Đó là nơi lưu giữ tiếng cười trong trẻo, những bài giảng ấm áp và hoài bão của biết bao thế hệ học trò.</p>
+            <p class="interactive-text">Chạm vào quá khứ không phải là để níu kéo, mà là để thấy chúng ta đã trưởng thành mạnh mẽ như thế nào. Như một hố đen thu hút mọi vật chất để tạo ra ánh sáng chói lòa, ngôi trường này đã hấp thu tâm huyết của người thầy để thắp sáng tương lai.</p>
+        </section>
+
+        <!-- Section 3: Sứ mệnh & Tương lai -->
+        <section class="reveal">
+            <h2>Chuyển Giao Thế Hệ</h2>
+            <p class="interactive-text">Sự khép lại của một thời kỳ cũ mở ra cánh cửa cho những khởi nguyên mới. Học sinh An Hiệp mang trong mình bản lĩnh của vùng đất Sóc Trăng hiền hòa nhưng kiên cường. Dù đi đâu, bước chân của các bạn đều mang theo dấu ấn của ngôi trường này.</p>
+            <p class="interactive-text">Tri thức là một chân trời không giới hạn. Hãy để ký ức làm bệ phóng, đẩy chúng ta vươn ra những tinh hệ mới của sự sáng tạo và thành công.</p>
+        </section>
+
+        <!-- Section 4: Lời kết dài -->
+        <section class="reveal">
+            <h2>Dấu Ấn Không Phai</h2>
+            <p class="interactive-text">Bài viết này, giao diện này được tạo ra không chỉ để tham gia một cuộc thi, mà để tôn vinh một di sản. Mỗi cái chạm của bạn trên màn hình, mỗi dòng chữ mờ đi rồi hiện rõ, tượng trưng cho những hồi ức đôi khi phai nhòa theo thời gian nhưng sẽ luôn sắc nét trở lại khi ta nâng niu nhớ về.</p>
+            <p class="interactive-text">THCS An Hiệp cũ - một huyền thoại nhỏ trong lòng Sóc Trăng, sẽ luôn là niềm tự hào vĩnh cửu.</p>
+        </section>
+
+        <!-- Section 5: ID Web Chuyển Tiếp -->
+        <section class="reveal footer-id">
+            <h3>Hành trình vẫn tiếp diễn...</h3>
+            <p style="margin-bottom: 30px; text-align: center;">Khám phá không gian tiếp theo của dự án</p>
+            <a href="#" class="next-id-btn">Tiến nhập ID Web: #AH-2026-NEXT</a>
+        </section>
+    </main>
+
+    <!-- Thư viện Three.js để vẽ 3D -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    
+    <script>
+        // --------------------------------------------------------
+        // 1. HIỆU ỨNG CUỘN TRANG (SCROLL REVEAL - MỜ VÀ HIỆN DẦN)
+        // --------------------------------------------------------
+        const reveals = document.querySelectorAll('.reveal');
+        
+        const revealOptions = {
+            threshold: 0.15,
+            rootMargin: "0px 0px -50px 0px"
+        };
+
+        const revealOnScroll = new IntersectionObserver(function(entries, observer) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                } else {
+                    // Xóa dòng dưới nếu không muốn chữ mờ lại khi cuộn qua
+                    entry.target.classList.remove('active'); 
+                }
+            });
+        }, revealOptions);
+
+        reveals.forEach(reveal => {
+            revealOnScroll.observe(reveal);
+        });
+
+        // --------------------------------------------------------
+        // 2. HIỆU ỨNG HỐ ĐEN 3D BẰNG THREE.JS
+        // --------------------------------------------------------
+        const container = document.getElementById('blackhole-canvas');
+        
+        const scene = new THREE.Scene();
+        scene.fog = new THREE.FogExp2(0x000000, 0.001);
+
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera.position.z = 100;
+        camera.position.y = 30;
+        camera.lookAt(0, 0, 0);
+
+        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(window.devicePixelRatio);
+        container.appendChild(renderer.domElement);
+
+        // Tạo hệ thống hạt (Particles) cho Hố Đen
+        const particleCount = 12000;
+        const geometry = new THREE.BufferGeometry();
+        const positions = new Float32Array(particleCount * 3);
+        const colors = new Float32Array(particleCount * 3);
+        const sizes = new Float32Array(particleCount);
+
+        const colorObj = new THREE.Color();
+
+        for (let i = 0; i < particleCount; i++) {
+            // Toán học tạo vòng xoáy accretion disk của hố đen
+            const radius = Math.random() * 80 + 5; // Bán kính vòng ngoài và khoảng trống chân trời sự kiện (5)
+            const theta = Math.random() * Math.PI * 2; // Góc
+            
+            // Hạt càng gần tâm thì dao động trục Y càng lớn (tạo hình phễu/vòng xoáy)
+            const y = (Math.random() - 0.5) * (150 / radius); 
+
+            positions[i * 3] = radius * Math.cos(theta);
+            positions[i * 3 + 1] = y;
+            positions[i * 3 + 2] = radius * Math.sin(theta);
+
+            // Đổ màu theo khoảng cách (Đỏ/Cam ở tâm, Tím/Xanh ở viền)
+            if (radius < 15) {
+                colorObj.setHSL(0.05 + Math.random()*0.1, 1, 0.5); // Đỏ cam
+            } else if (radius < 40) {
+                colorObj.setHSL(0.7 + Math.random()*0.1, 0.8, 0.6); // Tím
+            } else {
+                colorObj.setHSL(0.6, 0.5, 0.2 + Math.random()*0.3); // Xanh tối
+            }
+
+            colors[i * 3] = colorObj.r;
+            colors[i * 3 + 1] = colorObj.g;
+            colors[i * 3 + 2] = colorObj.b;
+
+            sizes[i] = Math.random() * 2;
+        }
+
+        geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+        geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+        geometry.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
+
+        // Shader Material cho hạt lấp lánh
+        const material = new THREE.PointsMaterial({
+            size: 0.5,
+            vertexColors: true,
+            blending: THREE.AdditiveBlending,
+            transparent: true,
+            opacity: 0.8,
+            depthWrite: false
+        });
+
+        const blackHoleSystem = new THREE.Points(geometry, material);
+        scene.add(blackHoleSystem);
+
+        // Core đen (Chân trời sự kiện)
+        const coreGeo = new THREE.SphereGeometry(4.5, 32, 32);
+        const coreMat = new THREE.MeshBasicMaterial({ color: 0x000000 });
+        const core = new THREE.Mesh(coreGeo, coreMat);
+        scene.add(core);
+
+        // Tương tác chuột/chạm làm nghiêng camera 3D
+        let mouseX = 0;
+        let mouseY = 0;
+        let targetX = 0;
+        let targetY = 0;
+        const windowHalfX = window.innerWidth / 2;
+        const windowHalfY = window.innerHeight / 2;
+
+        document.addEventListener('mousemove', (event) => {
+            mouseX = (event.clientX - windowHalfX) * 0.05;
+            mouseY = (event.clientY - windowHalfY) * 0.05;
+        });
+        
+        document.addEventListener('touchmove', (event) => {
+            mouseX = (event.touches[0].clientX - windowHalfX) * 0.05;
+            mouseY = (event.touches[0].clientY - windowHalfY) * 0.05;
+        });
+
+        // Animation Loop
+        const clock = new THREE.Clock();
+
+        function animate() {
+            requestAnimationFrame(animate);
+            const time = clock.getElapsedTime();
+
+            // Hiệu ứng hút và xoay của hố đen
+            blackHoleSystem.rotation.y -= 0.002;
+            blackHoleSystem.rotation.z = Math.sin(time * 0.2) * 0.05;
+
+            // Chuyển động mượt của camera
+            targetX = mouseX * 0.5;
+            targetY = mouseY * 0.5;
+            
+            camera.position.x += (targetX - camera.position.x) * 0.02;
+            camera.position.y += (-targetY + 30 - camera.position.y) * 0.02;
+            camera.lookAt(scene.position);
+
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        // Responsive khi Resize hoặc xoay màn hình điện thoại
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+    </script>
+</body>
+</html>

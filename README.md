@@ -1,1 +1,0 @@
-# Wed-truong-soc-trang
